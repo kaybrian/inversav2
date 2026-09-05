@@ -14,6 +14,7 @@
     "gsap": "^3.12.5",
     "imagesloaded": "^5.0.0",
     "isotope-layout": "^3.0.6",
+    "motion": "^13.2.0",
     "next": "15.1.11",
     "rc-slider": "^11.1.8",
     "react": "19.0.0",
@@ -22,6 +23,7 @@
     "react-scroll-parallax": "^3.4.5",
     "react-slick": "^0.30.3",
     "react-tooltip": "^5.28.0",
+    "resend": "^6.26.0",
     "sass": "^1.84.0",
     "slick-carousel": "^1.8.1"
   }
