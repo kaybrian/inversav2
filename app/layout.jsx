@@ -1,58 +1,95 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import "../public/assets/css/vendor.css";
 import "../public/assets/sass/style.scss";
-import { ParallaxProvider } from "react-scroll-parallax";
-import ScrollTop from "@/components/common/ScrollTop";
+import "../public/assets/sass/neo.scss";
 import "rc-slider/assets/index.css";
-import { Unbounded, Poppins } from "next/font/google";
-import ScrollTopBehaviour from "@/components/common/ScrollTopBehavier";
-import Context from "@/context/Context";
-if (typeof window !== "undefined") {
-  import("bootstrap/dist/js/bootstrap.esm").then((module) => {
-    // Module is imported, you can access any exported functionality if
-  });
-}
-// wow js
+import { Outfit, Poppins } from "next/font/google";
+import Providers from "./providers";
+import { site, seo } from "@/data/site";
 
-const unbounded = Unbounded({
+// Wide, light geometric grotesque used for every display headline.
+const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600"],
   variable: "--title-font",
+  display: "swap",
 });
 
-// Poppins font
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--body-font",
+  display: "swap",
 });
 
-export default function RootLayout({ children }) {
-  const path = usePathname();
-  let wow = null;
-  useEffect(() => {
-    const WOW = require("@/utils/wow");
-    wow = new WOW.default({
-      live: false,
-      mobile: false,
-    });
-    wow.init();
-  }, [path]);
-  //useEffect(() => {
+export const metadata = {
+  // Everything relative in this file and in every page resolves against this.
+  metadataBase: new URL(site.url),
+  title: {
+    default: seo.defaultTitle,
+    template: seo.titleTemplate,
+  },
+  description: seo.defaultDescription,
+  keywords: seo.keywords,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    locale: site.locale,
+    url: site.url,
+    title: seo.defaultTitle,
+    description: seo.defaultDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: seo.defaultTitle,
+    description: seo.defaultDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/assets/img/favicons/favicon.png", type: "image/png" },
+    ],
+    apple: "/assets/img/favicons/favicon.png",
+  },
+  formatDetection: { telephone: false, address: false, email: false },
+};
 
-  //wow?.sync();
-  //}, [path]);
+export const viewport = {
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`body  ${poppins.variable} ${unbounded.variable}`}>
-        <Context>
-          <ParallaxProvider>{children}</ParallaxProvider>
-          <ScrollTop />
-          <ScrollTopBehaviour />
-        </Context>
+      <body className={`body  ${poppins.variable} ${outfit.variable}`}>
+        {/* Motion renders its `initial` state into the server HTML, which means
+            a page with JavaScript disabled would arrive completely blank.
+            This puts every hidden element back on screen in that case. */}
+        <noscript>
+          <style>{`
+            [style*="opacity:0;"], [style$="opacity:0"] { opacity: 1 !important; }
+            [style*="transform:translate"], [style*="transform:scale"] { transform: none !important; }
+          `}</style>
+        </noscript>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

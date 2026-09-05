@@ -20,7 +20,7 @@ export default function Footer1() {
                 <p className="mb-30">
                   We are always looking for world-class engineers, designers, and strategic partners to join the Inversa ecosystem.
                 </p>
-                <Link scroll={false} href="https://calendly.com/inversa-inc-support/30min" className="btn">
+                <Link scroll={false} href="https://calendly.com/kayonbrian/15min" className="btn">
                   <span className="link-effect">
                     <span className="effect-1">LET'S TALK WITH US</span>
                     <span className="effect-1">LET'S TALK WITH US</span>

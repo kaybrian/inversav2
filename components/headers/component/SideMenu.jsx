@@ -57,7 +57,7 @@ export default function SideMenu({ isOpen, setIsOpen }) {
         <div className="d-flex justify-content-end">
           <Link
             scroll={false}
-            href="https://calendly.com/inversa-inc-support/30min"
+            href="https://calendly.com/kayonbrian/15min"
             className="chat-btn gsap-magnetic"
           >
             Let’s Talk with us
